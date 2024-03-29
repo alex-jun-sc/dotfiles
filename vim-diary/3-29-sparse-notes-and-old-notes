@@ -1,0 +1,62 @@
+============================================================
+				Vim old notes and sparse (unstructed) notes
+============================================================
+
+----
+3-29 - move garbage out of rc file
+---
+
+" this file is written in vimscript - reminder to myself
+" reminder that noremap is nonrecursive
+
+" 3/4/24 - treat this like a 'vim diary' of things learned + update log
+" - fzf is not integrated with nerdtree. doing C in nerdtree doesn't change the working directory of the vim instance
+"- so, always call vim from ~ and then use Files to find the project (unless you find an exception), and change working directory using C
+
+" 3/9/24 - add autoformat using formatprog
+"	and also working on autocomplete
+" autocomplete not added yet 
+" but added vim session, vim-startify, failed to add cool cow, and also found that vim-prosession doesn't work with startify
+" also got clang-format working for cpp file
+
+" 3/17/24 - i ought to map Files and Buffers into shortcuts..
+" fixed trampling tmux prefix 
+" map certain common things - write, quit, save session, into leader key
+" added dependency - install ripgrep
+
+" 3/20 last time I didn't figure out how to use nerdtree properly - the plugin that saves the nerdtree
+" state doesn't seem to work.
+" so, i figure it's time to ask, why not use netrw? it supposedly works with sftp, scp, etc
+" but first, I want to learn ctrl-w (resizing panes) - I think a couple quick shortcuts should do the trick because I mainly use even splits
+" both are going in the backlog
+" added mouse resizing for panes
+
+" changed line 4 like this in file: vimplugins/nerdtree-project-plugin/nerdtree_plugin/project.vim
+"command! -nargs=0 -complete=customlist,NERDTreeCompleteProjectNames NERDTreeProjectLoadFromCWD call g:NERDTreeProject.LoadFromCWD()
+"edit took suggestion from reddit guy
+"uncomment
+" command! -nargs=0 NERDTreeProjectLoadFromCWD call g:NERDTreeProject.LoadFromCWD()
+
+" tried that, nerdtree error is gone but it still doesn't work...
+" added yank directory of current buffer into clipboard
+
+" i think the best option here is fern... 
+
+"
+"	My backlog of stuff to take care of / learn:
+"   ====================================
+"
+"	Visual block - commenting out multiple lines
+"	properly learn find and replace
+"	autocomplete and lsp integration
+" 	session management (save session, restore)
+"	resizing panes (ctrlw)
+"	netrw - a big one I think - nvm internet says it sucks
+" can we please map nohl ot sometihng bro
+" another problem - leader should be remapped - , is already 'go back in line search' and I think
+" 	that's why 'recording ...' pops up
+" 
+
+" 3/28 - change approach to learning fundamentals and building from them rather htan
+" adding feature sthta I don't use
+

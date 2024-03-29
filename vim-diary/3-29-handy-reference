@@ -1,0 +1,28 @@
+============================================================
+				Vim Handy Reference
+============================================================
+
+the idea:
+	action = [verb] + [noun]
+
+all working vocab:
+	operator
+	motion
+	text object
+	selection
+
+verb = operator
+noun =
+	motion 
+	text object
+		- inside or around a motion or selection
+	parametrized text object
+		- using f or t
+
+---
+text objects using selections:
+
+---
+
+marks:
+

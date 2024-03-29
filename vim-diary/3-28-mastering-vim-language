@@ -1,0 +1,66 @@
+============================================================
+				Vim Notes Comprehensive
+============================================================
+
+Speaker claims that vim lets him "talk to the editor" and waste as few thought cycles as possible telling the editor how to change things and spend it thinking about other stuff.
+
+vim is broken down into:
+[verbs]
+[nouns]
+
+These compose commands - which are repeatable and undoable
+
+verbs are operators, which operate on nouns:
+motions - the same motions that move over text compose what operator acts on
+	- w, b, etc..
+	- also don't forget the capitalcase forms
+text objects - represent text that should be operated on.
+	text object types:
+		- "inner" or "around" + a motion
+		- "inner" or "around" a [selection] - paragraph, angle brackets, etc...
+		- parametrized objects - "f, t" 
+
+operators
+motions
+text objects
+	- selections
+
+----
+
+Good rules of thumb:
+- use text objects over motions (iw over w) - so that . can repeat.
+- example: dw . moves over the word, but diw repeats without doing so.
+
+
+- blabla bla
+- blabla cra
+
+----
+
+3/29: let's continue expanding on nouns:
+
+motions:
+	categories:
+		- moving through lines (homerow)
+		- moving through lines by virtual line (I have mappings for this )
+		- moving wordwise - (back, front of next,previous word)
+		- finding by character, (f, t, F, T), repeating commands ;,
+		- searching to navigate - search small and then increase size e.g. /ta, /tak, /take
+			works in situations where lines are long / search for common letter
+			- the search motion works in other modes
+			- visual allows selection over any text object
+	marks - their own category:
+		- ma - creates mark a
+		- 'a - moves to mark a
+		- there are also automatic marks
+		
+		- jump between matching parentheses
+
+var tpl = [
+	'<a href="{url}">{title}</a>'
+]
+
+"flskjdflkj"   "blabal2"
+
+text objects:
+	full list on 128

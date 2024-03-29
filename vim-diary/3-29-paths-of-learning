@@ -1,0 +1,29 @@
+============================================================
+				Vim - Paths of Learning
+============================================================
+
+------------------------------------------------------------
+				Ongoing learning	
+------------------------------------------------------------
+- getting a good coverage of the verb/noun paradigm
+- using marks properly and occasionally using automatic marks
+- using register properly
+- inline comments that don't show up in git
+- using visual mode properly and using clipboard yank as an operator
+	instead of doing visual all the time
+
+
+------------------------------------------------------------
+		Wanted features / more specific things
+------------------------------------------------------------
+- autocomplete for specific languages
+- intelligent commenting 
+- a bunch of stuff for multipane vim - 
+	- since it's almost always going to be 2-3 this should be as simplified as possible
+	- even out layout (horizontally or vertically) - ignore - we have mouse to adjust this 
+	-  swap panes
+
+------------------------------------------------------------
+				Completed learning :)
+------------------------------------------------------------
+- jump between buffers more quickly
