@@ -22,8 +22,10 @@
 	- since it's almost always going to be 2-3 this should be as simplified as possible
 	- even out layout (horizontally or vertically) - ignore - we have mouse to adjust this 
 	-  swap panes
+- tgkev says to use tpope vinegar. I believe him
 
 ------------------------------------------------------------
 				Completed learning :)
 ------------------------------------------------------------
 - jump between buffers more quickly
+- system-copy as an operator

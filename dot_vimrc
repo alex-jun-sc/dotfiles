@@ -93,6 +93,11 @@ Plug 'mhinz/vim-startify'
 " Plug 'cowsay-org/cowsay'
 " Plug 'mklabs/vim-cowsay'
 
+" adds cp and cv operators
+" cvi' - paste inside single quotes from system clipboard
+" cP - whole line, cV - pastes entire clipboard
+Plug 'christoomey/vim-system-copy'
+
 call plug#end()
 
 " ============================================================================================							

@@ -20,6 +20,13 @@ noun =
 		- using f or t
 
 ---
+custom operators:
+
+adds cp and cv operators
+cvi' - paste inside single quotes from system clipboard
+cP - whole line, cV - pastes entire clipboard
+
+---
 text objects using selections:
 
 ---
