@@ -2,36 +2,49 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# Alex's aliases
-function cdls() {
-    cd "$@" && ls
-}
-alias cdl='cdls'
-
-# cd into fzf-found subdirectory, only cd if it's valid, and add to directory stack
-# (popd to go back)
-function cdfzf() {
-dir=$(find . -type d -print | fzf) && [[ -n "$dir" ]] && pushd "$dir" >/dev/null
-}
-
-function cdh(){
-	cd ~
-}
-
-function cdb(){
-	dir=$(pwd) && pushd "$dir" >/dev/null && cd ../
-}
-
-# for quick opens - pretty sure there is a better way inside vim 
-function fzfv(){
-file=$(find . -type f | fzf) && [[ -n "$file" && -e "$file" ]] && vim "$file"
-}
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
+
+# ----------------------------------------------------
+# 				tab completion stuff from this link:
+# 				https://stackoverflow.com/questions/7179642/how-can-i-make-bash-tab-completion-behave-like-vim-tab-completion-and-cycle-thro
+# ----------------------------------------------------
+# If there are multiple matches for completion, Tab should cycle through them
+bind 'TAB:menu-complete'
+# And Shift-Tab should cycle backwards
+bind '"\e[Z": menu-complete-backward'
+
+# Display a list of the matching files
+bind "set show-all-if-ambiguous on"
+
+# Perform partial (common) completion on the first Tab press, only start
+# cycling full results on the second Tab press (from bash version 5)
+bind "set menu-complete-display-prefix on"
+
+# ----------------------------------------------------
+# 		end tab completion stuff
+# ----------------------------------------------------
+
+
+# ----------------------------------------------------
+# 		cycle through history using up, down arrow with autocomplete
+# 		- e.g. ssh <up> looks through ssh commands, <down> goes backwards
+# ----------------------------------------------------
+
+# Cycle through history based on characters already typed on the line
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
+
+# Keep Ctrl-Left and Ctrl-Right working when the above are used
+bind '"\e[1;5C":forward-word'
+bind '"\e[1;5D":backward-word'
+
+# ----------------------------------------------------
+# 		end autocompleted history scrolling
+# ----------------------------------------------------
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -111,11 +124,6 @@ fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert

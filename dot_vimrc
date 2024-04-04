@@ -175,8 +175,11 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 " find centers the nerdtree around your current file
 nnoremap <C-f> :NERDTreeFind<CR>		
 " take this out - ctrl n for buffer navigation
-" nnoremap <C-n> :NERDTree<CR>		
+" nnoremap <C-n> :NERDTree<CRDTreeHijackNetrw=1
 
+
+" let's try this out 
+" let NERDTreeHijackNetrw=1
 
 
 " ============================================================================================							
