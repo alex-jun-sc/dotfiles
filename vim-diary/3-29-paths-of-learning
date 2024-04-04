@@ -16,8 +16,12 @@
 ------------------------------------------------------------
 		Wanted features / more specific things
 ------------------------------------------------------------
+- learning how to use and view registers properly
+
+- better syntax highlighting - this is pretty critical
 - autocomplete for specific languages
 - intelligent commenting 
+
 - a bunch of stuff for multipane vim - 
 	- since it's almost always going to be 2-3 this should be as simplified as possible
 	- even out layout (horizontally or vertically) - ignore - we have mouse to adjust this 
