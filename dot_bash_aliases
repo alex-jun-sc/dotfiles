@@ -1,0 +1,39 @@
+# aliases should go here and NOT in bashrc
+
+# stop typing clear all the time!
+alias cl='clear'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Alex's aliases
+function cdls() {
+    cd "$@" && ls
+}
+alias cdl='cdls'
+
+# cd into fzf-found subdirectory, only cd if it's valid, and add to directory stack
+# (popd to go back)
+function cdfzf() {
+dir=$(find . -type d -print | fzf) && [[ -n "$dir" ]] && pushd "$dir" >/dev/null
+}
+
+function cdh(){
+	cd ~
+}
+
+function cdb(){
+	dir=$(pwd) && pushd "$dir" >/dev/null && cd ../
+}
+
+# for quick opens - pretty sure there is a better way inside vim 
+function fzfv(){
+file=$(find . -type f | fzf) && [[ -n "$file" && -e "$file" ]] && vim "$file"
+}
+
+# copy current directory
+function pwdcp(){
+	pwd | xsel -ib
+}

@@ -33,3 +33,9 @@ text objects using selections:
 
 marks:
 
+---
+misc. notes:
+
+H,M,L to jump within current screen, not recenter it
+zz, zb, zt for recentering
+

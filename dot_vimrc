@@ -40,6 +40,10 @@ set smartcase
 " set smartindent
 " set smarttab
 
+" nocompatible required for polyglot
+set nocompatible
+let g:semanticTermColors = [28,1,2,3,4,5,6,7,25,9,10,34,12,13,14,15,16,125,124,19]
+
 " ============================================================================================
 " 								 automatically install vim-plug	
 " ============================================================================================
@@ -97,6 +101,13 @@ Plug 'mhinz/vim-startify'
 " cvi' - paste inside single quotes from system clipboard
 " cP - whole line, cV - pastes entire clipboard
 Plug 'christoomey/vim-system-copy'
+
+" the syntax highlighting is not sufficient
+" let's see if this works...
+" it was not to my liking.
+" Plug 'sheerun/vim-polyglot'
+
+Plug 'jaxbot/semantic-highlight.vim'
 
 call plug#end()
 
