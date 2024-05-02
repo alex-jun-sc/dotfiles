@@ -1,0 +1,56 @@
+# !!! this is NOT executed by nonlogin shells (ctrl-alt-t)!
+# only is if run command as login shell is checked
+
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+# do so for other paths - unix does not handle this recursively
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+if [ -d "$HOME/.local/bin/tmux" ] ; then
+    PATH="$HOME/.local/bin/tmux:$PATH"
+fi
+
+# add vim-plug
+export PATH="$HOME/.vim:$PATH"
+
+# some stuff to make vim colors work in tmux
+alias tmux="TERM=screen-256color-bce tmux"
+
+# Add llvm/debug/bin to PATH
+# if [ -d "scjun@scjun-ThinkPad-T14-Gen-3:~/Development/llvm-project/build$" ] ; then
+#	PATH="$HOME/llvm/debug/bin:$PATH"
+	PATH=$HOME/Development/llvm-project/build/bin:$PATH
+# fi
+
+# some stuff to make working with arc and vcl not a pain
+# common values
+export ncsu_identity="id_ed25519_scjun.pub"
+export ncsu_user="scjun"
+
+# arc
+export arc_identity="id_rsa"
+export arc_home="arc.csc.ncsu.edu"
+export arc_dir="$ncsu_user"@"$arc_home":/home/"$ncsu_user"/

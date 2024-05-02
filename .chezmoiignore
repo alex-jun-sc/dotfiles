@@ -1,0 +1,5 @@
+
+{{ if ne .chezmoi.os "linux" }}
+testfile.conf.tmpl
+{{ end }}
+
