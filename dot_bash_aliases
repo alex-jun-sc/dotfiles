@@ -1,5 +1,9 @@
 # aliases should go here and NOT in bashrc
 
+# ===============================================================
+#		general navigation utilities
+# ===============================================================
+
 # stop typing clear all the time!
 alias cl='clear'
 
@@ -8,17 +12,30 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Alex's aliases
-function cdls() {
-    cd "$@" && ls
+# copy current directory
+function pwdcp(){
+	pwd | xsel -ib
 }
-alias cdl='cdls'
+
+# ===============================================================
+#			file navigation
+# ===============================================================
 
 # cd into fzf-found subdirectory, only cd if it's valid, and add to directory stack
 # (popd to go back)
 function cdf() {
 dir=$(find . -type d -print | fzf) && [[ -n "$dir" ]] && pushd "$dir" >/dev/null
 }
+
+# fuzzy find for a file and open it using vim
+function fzfv(){
+file=$(find . -type f | fzf) && [[ -n "$file" && -e "$file" ]] && nvim "$file"
+}
+
+function cdls() {
+    cd "$@" && ls
+}
+alias cdl='cdls'
 
 function cdh(){
 	pushd ~
@@ -28,17 +45,17 @@ function cdb(){
 	dir=$(pwd) && pushd "$dir" >/dev/null && cd ../
 }
 
-# for quick opens - pretty sure there is a better way inside vim 
-function fzfv(){
-file=$(find . -type f | fzf) && [[ -n "$file" && -e "$file" ]] && vim "$file"
-}
 
-# copy current directory
-function pwdcp(){
-	pwd | xsel -ib
-}
+# ===============================================================
+#			tmux aliases
+# ===============================================================
 
 # " stf - Start Tmux using Fuzzyfinder"
 function stf(){
 	tmux_sessionizer	
 }
+
+# ===============================================================
+#			nvim aliases
+# ===============================================================
+alias nv='nvim'
