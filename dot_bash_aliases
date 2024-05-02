@@ -16,12 +16,12 @@ alias cdl='cdls'
 
 # cd into fzf-found subdirectory, only cd if it's valid, and add to directory stack
 # (popd to go back)
-function cdfzf() {
+function cdf() {
 dir=$(find . -type d -print | fzf) && [[ -n "$dir" ]] && pushd "$dir" >/dev/null
 }
 
 function cdh(){
-	cd ~
+	pushd ~
 }
 
 function cdb(){
@@ -36,4 +36,9 @@ file=$(find . -type f | fzf) && [[ -n "$file" && -e "$file" ]] && vim "$file"
 # copy current directory
 function pwdcp(){
 	pwd | xsel -ib
+}
+
+# " stf - Start Tmux using Fuzzyfinder"
+function stf(){
+	tmux_sessionizer	
 }
