@@ -1,5 +1,42 @@
+# #!/bin/bash
+# # This script indexes into tmux sessions and switches the client to the inverted index
+#
+# # Check if the session index is provided
+# if [ -z "$1" ]; then
+#   echo "Usage: $0 <session-index>"
+#   exit 1
+# fi
+#
+# SESSION_INDEX=$1
+#
+# # Get a list of active tmux sessions
+# SESSIONS=$(tmux list-sessions -F "#S")
+#
+# # Convert the session names into an array
+# SESSION_ARRAY=($SESSIONS)
+#
+# # Calculate inverted index
+# INVERTED_INDEX=$(( ${#SESSION_ARRAY[@]} - SESSION_INDEX - 1 ))
+#
+# # Check if the provided index is valid
+# if [ $SESSION_INDEX -lt 0 ] || [ $SESSION_INDEX -ge ${#SESSION_ARRAY[@]} ]; then
+#   echo "Invalid session index: $SESSION_INDEX"
+#   exit 1
+# fi
+#
+# # Get the session name from the array using the inverted index
+# SESSION_NAME=${SESSION_ARRAY[$INVERTED_INDEX]}
+#
+# # Check if running within tmux, then switch to the session
+# if [ -n "$TMUX" ]; then
+#   tmux switch-client -t $SESSION_NAME
+# else
+#   echo "This script should be run from within a tmux session."
+#   exit 1
+# fi
+#
 #!/bin/bash
-# This script indexes into tmux sessions and switches the client to the inverted index
+# This script indexes into tmux sessions and switches the client to the specified index
 
 # Check if the session index is provided
 if [ -z "$1" ]; then
@@ -15,17 +52,14 @@ SESSIONS=$(tmux list-sessions -F "#S")
 # Convert the session names into an array
 SESSION_ARRAY=($SESSIONS)
 
-# Calculate inverted index
-INVERTED_INDEX=$(( ${#SESSION_ARRAY[@]} - SESSION_INDEX - 1 ))
-
 # Check if the provided index is valid
 if [ $SESSION_INDEX -lt 0 ] || [ $SESSION_INDEX -ge ${#SESSION_ARRAY[@]} ]; then
   echo "Invalid session index: $SESSION_INDEX"
   exit 1
 fi
 
-# Get the session name from the array using the inverted index
-SESSION_NAME=${SESSION_ARRAY[$INVERTED_INDEX]}
+# Get the session name from the array using the provided index
+SESSION_NAME=${SESSION_ARRAY[$SESSION_INDEX]}
 
 # Check if running within tmux, then switch to the session
 if [ -n "$TMUX" ]; then
