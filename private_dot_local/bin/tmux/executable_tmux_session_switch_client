@@ -35,8 +35,41 @@
 #   exit 1
 # fi
 #
-#!/bin/bash
+#
+# !/bin/bash
 # This script indexes into tmux sessions and switches the client to the specified index
+
+# # Check if the session index is provided
+# if [ -z "$1" ]; then
+#   echo "Usage: $0 <session-index>"
+#   exit 1
+# fi
+#
+# SESSION_INDEX=$1
+#
+# # Get a list of active tmux sessions
+# SESSIONS=$(tmux list-sessions -F "#S")
+#
+# # Convert the session names into an array
+# SESSION_ARRAY=($SESSIONS)
+#
+# # Check if the provided index is valid
+# if [ $SESSION_INDEX -lt 0 ] || [ $SESSION_INDEX -ge ${#SESSION_ARRAY[@]} ]; then
+#   echo "Invalid session index: $SESSION_INDEX"
+#   exit 1
+# fi
+#
+# # Get the session name from the array using the provided index
+# SESSION_NAME=${SESSION_ARRAY[$SESSION_INDEX]}
+#
+# # Check if running within tmux, then switch to the session
+# if [ -n "$TMUX" ]; then
+#   tmux switch-client -t $SESSION_NAME
+# else
+#   echo "This script should be run from within a tmux session."
+#   exit 1
+# fi
+#
 
 # Check if the session index is provided
 if [ -z "$1" ]; then
@@ -46,24 +79,28 @@ fi
 
 SESSION_INDEX=$1
 
-# Get a list of active tmux sessions
-SESSIONS=$(tmux list-sessions -F "#S")
+# Get a list of active tmux sessions sorted by (descending) session creation time
+# SESSIONS=$(tmux list-sessions -F "#{session_activity}:#{session_name}" | sort -n)
+# SESSIONS=$(tmux list-sessions -F "#{session_activity}:#{session_name}" | sort -nr)
+SESSIONS=$(tmux list-sessions -F "#{session_created}:#{session_name}" | sort -n)
+# echo $SESSIONS
 
-# Convert the session names into an array
+# Convert the session names into an array, preserving the sorting order
+IFS=$'\n' # Change the Internal Field Separator to newline
 SESSION_ARRAY=($SESSIONS)
 
 # Check if the provided index is valid
-if [ $SESSION_INDEX -lt 0 ] || [ $SESSION_INDEX -ge ${#SESSION_ARRAY[@]} ]; then
+if [ "$SESSION_INDEX" -lt 0 ] || [ "$SESSION_INDEX" -ge "${#SESSION_ARRAY[@]}" ]; then
   echo "Invalid session index: $SESSION_INDEX"
   exit 1
 fi
 
-# Get the session name from the array using the provided index
-SESSION_NAME=${SESSION_ARRAY[$SESSION_INDEX]}
+# Get the session name from the array using the provided index (strip activity time)
+SESSION_NAME=$(echo "${SESSION_ARRAY[$SESSION_INDEX]}" | cut -d: -f2)
 
 # Check if running within tmux, then switch to the session
 if [ -n "$TMUX" ]; then
-  tmux switch-client -t $SESSION_NAME
+  tmux switch-client -t "$SESSION_NAME"
 else
   echo "This script should be run from within a tmux session."
   exit 1
