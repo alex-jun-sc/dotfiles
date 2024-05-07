@@ -82,7 +82,8 @@ SESSION_INDEX=$1
 # Get a list of active tmux sessions sorted by (descending) session creation time
 # SESSIONS=$(tmux list-sessions -F "#{session_activity}:#{session_name}" | sort -n)
 # SESSIONS=$(tmux list-sessions -F "#{session_activity}:#{session_name}" | sort -nr)
-SESSIONS=$(tmux list-sessions -F "#{session_created}:#{session_name}" | sort -n)
+# SESSIONS=$(tmux list-sessions -F "#{session_created}:#{session_name}" | sort -n)
+SESSIONS=$(tmux list-sessions -F "#{session_name}" | sort -n)
 # echo $SESSIONS
 
 # Convert the session names into an array, preserving the sorting order

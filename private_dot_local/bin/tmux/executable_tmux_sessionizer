@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# this script creates a new session with name matching the fuzzy-found directory 
+
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
@@ -12,7 +14,9 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+# change selected name to be lowercase so that choose-tree sorts it properly
+# selected_name=$(basename "$selected" | tr . _)
+selected_name=$(basename "$selected" | tr . _ | tr '[:upper:]' '[:lower:]')
 tmux_running=$(pgrep tmux)
 
 # OK - tmux is not running
