@@ -14,10 +14,18 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
+# Use pwd to get the absolute path of the selected directory
+# Normalize the absolute path to remove any './' at the start
+absolute_path="$(pwd)/$selected"
+absolute_path="${absolute_path/.\//}"
+
 # change selected name to be lowercase so that choose-tree sorts it properly
 # selected_name=$(basename "$selected" | tr . _)
 selected_name=$(basename "$selected" | tr . _ | tr '[:upper:]' '[:lower:]')
 tmux_running=$(pgrep tmux)
+
+# replace selected with absolute path so this script works from nested directories
+selected=$absolute_path
 
 # OK - tmux is not running
 if [[ -z $tmux_running ]]; then
