@@ -51,9 +51,7 @@ function cdb(){
 # ===============================================================
 
 # " stf - Start Tmux using Fuzzyfinder"
-function stf(){
-	tmux_sessionizer	
-}
+alias stf='tmux_sessionizer'	
 
 # ===============================================================
 #			nvim aliases
