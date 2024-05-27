@@ -1,5 +1,4 @@
-# specifies a global profile
-# .chezmoitemplates contains template "headerfiles" that can be used by other templates wherever
+# specifies relevant attributes based on current setup
 
 [data]
 
@@ -14,4 +13,13 @@ profile = "tesla_mac_sonoma"
 profile = "personal_ubuntu"
 {{ else }}
 # unsupported OS
+{{ end }}
+
+# ===================================
+# 	set search directories
+# ===================================
+# note that chezmoi uses its own templating engine that is like that of go but not identical
+{{ if eq .profile "tesla_mac_sonoma"}}
+{{ else if eq .profile "personal_ubuntu"}}
+searchdir = "/"
 {{ end }}
