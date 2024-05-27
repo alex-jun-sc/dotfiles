@@ -157,3 +157,53 @@ eval "$(zoxide init bash)"
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
+
+# ----------------------------------------------------
+# 		autopilot things
+# ----------------------------------------------------
+
+# autopilot entry anywhere
+function get_ap_dir()
+{
+    if [ -d /usr_src/firmware ]; then
+        echo /usr_src/firmware
+    else
+        (
+        gittop=$(git rev-parse --show-toplevel)
+        # If we're in a sub-module (or sub-sub-module), search upwards for
+        # the parent (or grand-parent) git tree root.
+        while true
+        do
+            parent_gittop=$(cd "${gittop}"/.. && git rev-parse --show-toplevel 2>/dev/null)
+            if [ ! -z "${parent_gittop:-}" ] ; then
+                gittop="$parent_gittop"
+            else
+                break  # parent folder is not a git tree, so we're done
+            fi
+        done
+        echo "$gittop"
+        )
+    fi
+}
+ 
+function ap()
+{
+    (
+        set -x
+        $(get_ap_dir)/tools/autopilot "$@"
+    )
+}
+
+# autopilot command line completion
+eval "$(register-python-argcomplete3 ap 2>/dev/null)"
+
+# need this in path for ecu-checkout cli step b
+export PATH="$HOME/.local/bin":$PATH
+
+# benchtop ecu simulation
+export SIMULATION_APE_IFACE=enp2s0   # replace enp2s0 with your interface name
+
+# gopath for deploy script bitbucket
+export GOPATH=/Users/ajun/Downloads/firmware-master@cc439835928/os/package/gadget-updater
+export PATH="$GOPATH":$PATH
+export PATH="$GOPATH/bin":$PATH

@@ -1,0 +1,41 @@
+# notes for myself:
+# alacritty has its own vi-mode
+# https://github.com/alacritty/alacritty/blob/master/docs/features.md
+
+# enable alacritty to automatically reload the config file
+live_config_reload = true
+
+# colorscheme
+import = [
+    # "~/.config/alacritty/themes/themes/tokyo-night.toml"
+    # "~/.config/alacritty/themes/themes/city-lights"
+    "~/.config/alacritty/themes/themes/pastel_dark.toml"
+]
+
+# $TERM captures features and capabilities available
+[env]
+TERM = "xterm-256color"
+
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.95
+
+[window.padding]
+x = 25
+y = 20
+
+[font]
+size = 11.0
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Heavy"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+
+# We will be deprecating opt/meta so don't even bother
