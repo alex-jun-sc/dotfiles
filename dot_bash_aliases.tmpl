@@ -25,11 +25,43 @@ function pwdcp(){
 #			file navigation
 # ===============================================================
 
+# search all directories provided
+function search_dirs() {
+    local base_dirs=("$@")
+    local all_dirs=()
+
+    # Iterate over base directories to find subdirectories
+    for dir in "${base_dirs[@]}"; do
+        # Add found directories to all_dirs array
+        while IFS= read -r -d '' subdir; do
+            all_dirs+=("$subdir")
+        done < <(find "$dir" -type d -print0)
+    done
+
+    # Return the array of directories
+    echo "${all_dirs[@]}"
+}
+
+# fuzzy find over input directories
+function find_dir() {
+    local base_dirs=("$@")
+    
+    # Get all directories from the base directories
+    all_dirs=($(search_dirs "${base_dirs[@]}"))
+    
+    # Use fzf to select a directory from the list
+    dir=$(printf '%s\n' "${all_dirs[@]}" | fzf)
+    
+    # Return the selected directory
+    echo "$dir"
+}
+
 # select cdf behaviour - mac can't handle fuzzy finding over entire home directory
+# though if possible - i think we should just move all dev into one directory and just reuse the old one (faster because no appending upon call"
 if [ -n "$tesla_mac_sonoma" ]; then
 	# Function to cd into a fuzzy-found subdirectory and add to directory stack
 	function cdf() {
-	    dir=$(find_dir) && [[ -n "$dir" ]] && pushd "$dir" >/dev/null
+	    dir=$(find_dir "${include_dirs[@]}") && [[ -n "$dir" ]] && pushd "$dir" >/dev/null
 	}
 elif [ -n "$ubuntu_personal" ]; then
 	# cd into fzf-found subdirectory, only cd if it's valid, and add to directory stack
