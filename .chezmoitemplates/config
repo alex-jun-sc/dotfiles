@@ -1,0 +1,57 @@
+# ==========================================
+# 	begin chezmoi insert
+# ==========================================
+{{ if eq .chezmoi.os "impossible" }}
+
+# ==========================================
+# 	This file should used in bash 
+#	scripts to get config specific stuff
+# ==========================================
+
+{{ end}}
+# ==========================================
+# 	set configuration
+# ==========================================
+{{ if eq .chezmoi.os "darwin" }}
+tesla_mac_sonoma="1"
+{{ else if eq .chezmoi.os "linux" }}
+ubuntu_personal="1"
+{{ else }}
+{{ end }}
+# ==========================================
+# 	set relevant variables
+# 	add more include_dirs as needed
+# ==========================================
+if [ -n "$tesla_mac_sonoma" ]; then
+    copy_cmd="pbcopy"
+    include_dirs="$HOME"
+elif [ -n "$ubuntu_personal" ]; then
+    copy_cmd="xsel -ib"
+    include_dirs="$HOME"
+fi
+
+# ==========================================
+# 	generate fuzzy find command
+# ==========================================
+function find_dir() {
+    # Initialize an empty array to hold all directories found
+    all_dirs=()
+
+    # Iterate over include_dirs to find directories
+    for dir in "${include_dirs[@]}"; do
+        # Add found directories to all_dirs array
+        while IFS= read -r -d '' subdir; do
+            all_dirs+=("$subdir")
+        done < <(find "$dir" -type d -print0)
+    done
+
+    # Use fzf to select a directory from the list
+    dir=$(printf '%s\n' "${all_dirs[@]}" | fzf)
+
+    # Return the selected directory
+    echo "$dir"
+}
+
+# ==========================================
+# 	end chezmoi insert
+# ==========================================

@@ -1,5 +1,7 @@
 # aliases should go here and NOT in bashrc
 
+{{ template "config" . }}
+
 # ===============================================================
 #		general navigation utilities
 # ===============================================================
@@ -14,23 +16,34 @@ alias l='ls -CF'
 
 # copy current directory
 function pwdcp(){
-	pwd | xsel -ib
+	## pwd | eval $copy_cmd
+	# avoid newline
+	printf "%s" "$(pwd)" | eval $copy_cmd
 }
 
 # ===============================================================
 #			file navigation
 # ===============================================================
 
-# cd into fzf-found subdirectory, only cd if it's valid, and add to directory stack
-# (popd to go back)
-function cdf() {
-dir=$(find . -type d -print | fzf) && [[ -n "$dir" ]] && pushd "$dir" >/dev/null
-}
+# select cdf behaviour - mac can't handle fuzzy finding over entire home directory
+if [ -n "$tesla_mac_sonoma" ]; then
+	# Function to cd into a fuzzy-found subdirectory and add to directory stack
+	function cdf() {
+	    dir=$(find_dir) && [[ -n "$dir" ]] && pushd "$dir" >/dev/null
+	}
+elif [ -n "$ubuntu_personal" ]; then
+	# cd into fzf-found subdirectory, only cd if it's valid, and add to directory stack
+	# (popd to go back)
+	function cdf() {
+		dir=$(find . -type d -print | fzf) && [[ -n "$dir" ]] && pushd "$dir" >/dev/null
+	}
+fi
 
 # fuzzy find for a file and open it using vim
-function fzfv(){
-file=$(find . -type f | fzf) && [[ -n "$file" && -e "$file" ]] && nvim "$file"
-}
+# this is outdated because we use telescope now
+## function fzfv(){
+## file=$(find . -type f | fzf) && [[ -n "$file" && -e "$file" ]] && nvim "$file"
+## }
 
 function cdls() {
     cd "$@" && ls
